@@ -1,0 +1,66 @@
+﻿<div class="row">
+    <div class="col-12">
+        @(Html.Kendo().Spreadsheet()
+            .Name("spreadsheet")
+            @* .Rows(201)   *@
+            .HtmlAttributes(new { style = "width:100%" })
+            .Toolbar(true)
+            .Sheetsbar(true)
+            .Excel(excel => excel.FileName("Students.xlsx"))
+            .Pdf(pdf => pdf.FileName("Students.pdf"))
+            .Events(e => e
+                .DataBinding("onDataBinding")
+                .DataBound("onDataBound"))
+            .Sheets(sheets =>
+            {
+                sheets.Add()
+                    .Name("Students")
+                    .DataSource<StudentSpreadsheetViewModel>(ds => ds
+                        .Custom()
+                        .Transport(t => t.Read("onRead")))
+                    .Columns(columns =>
+                    {
+                        columns.Add().Width(100);
+                        columns.Add().Width(415);
+                        columns.Add().Width(145);
+                        columns.Add().Width(145);
+                        columns.Add().Width(145);
+                    })
+                    .Rows(rows =>
+                    {
+                        rows.Add()
+                            .Height(40)
+                            .Cells(cells =>
+                            {
+                                cells.Add()
+                                    .Bold(true)
+                                    .Background("#9c27b0")
+                                    .TextAlign(SpreadsheetTextAlign.Center)
+                                    .VerticalAlign(SpreadsheetVerticalAlign.Center)
+                                    .Color("white");
+
+                                cells.Add()
+                                    .Bold(true)
+                                    .Background("#9c27b0")
+                                    .TextAlign(SpreadsheetTextAlign.Center)
+                                    .VerticalAlign(SpreadsheetVerticalAlign.Center)
+                                    .Color("white");
+
+                                cells.Add()
+                                    .Bold(true)
+                                    .Background("#9c27b0")
+                                    .TextAlign(SpreadsheetTextAlign.Center)
+                                    .VerticalAlign(SpreadsheetVerticalAlign.Center)
+                                    .Color("white");
+
+                                cells.Add()
+                                    .Bold(true)
+                                    .Background("#9c27b0")
+                                    .TextAlign(SpreadsheetTextAlign.Center)
+                                    .VerticalAlign(SpreadsheetVerticalAlign.Center)
+                                    .Color("white");
+                            });
+                    });
+            }))
+    </div>
+</div>

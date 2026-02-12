@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="StudentsSeed.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="KaustCourses.xlsx">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StudentsSeed.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ClosedXML" Version="0.105.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.12" />
+	<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.12" />
+	<PackageReference Include="Telerik.Documents.Core" Version="2025.4.1319" />
+	<PackageReference Include="Telerik.Documents.Fixed" Version="2025.4.1319" />
+	<PackageReference Include="Telerik.Documents.Fixed.FormatProviders.Image.Skia" Version="2025.4.1319" />
+	<PackageReference Include="Telerik.Documents.Flow" Version="2025.4.1319" />
+	<PackageReference Include="Telerik.Documents.Flow.FormatProviders.Pdf" Version="2025.4.1319" />
+	<PackageReference Include="Telerik.Documents.Spreadsheet.FormatProviders.OpenXml" Version="2025.4.1319" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\KendoMvcDemo.Core\KendoMvcDemo.Core.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,27 @@
+﻿<h4>Students</h4>
+<hr />
+
+<input type="hidden" id="loadSpreadsheetDataUrl" value="@Url.Action("LoadSpreadsheetData", "Students" )" />
+
+@*Needed for spreadsheets widget *@
+<script src="https://unpkg.com/jszip/dist/jszip.min.js"></script>
+
+@(Html.Kendo().TabStrip()
+    .Name("tabstrip")
+    .TabPosition(TabStripTabPosition.Top)
+    .Items(items =>
+    {
+        items.Add()
+            .Text("List")
+            .LoadContentFrom("ListView", "Students")
+            .Selected(ViewBag.ActiveTabNumber == 1);
+
+        items.Add()
+            .Text("Spreadsheet")
+            .LoadContentFrom("SpreadsheetView", "Students")
+            .Selected(ViewBag.ActiveTabNumber == 2);
+    }))
+
+@section scripts {
+    <script src="~/js/studentsSpreadsheet.js"></script>
+}

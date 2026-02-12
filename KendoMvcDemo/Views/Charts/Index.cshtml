@@ -1,0 +1,18 @@
+﻿@using KendoMvcDemo.ViewModels.Charts
+
+<div class="row">
+    <div class="col-12">
+        @(Html.Kendo().Chart<TopCoursesChartViewModel>()
+            .Name("chart")
+            .Title("Top 5 courses with most students enrolled")
+            .Legend(legend => legend.Position(ChartLegendPosition.Bottom))
+            .DataSource(ds => ds.Read("TopFiveBestCourses", "Charts"))
+            .Series(series =>
+            {
+                series.Column(x => x.StudentsCount)
+                    .Name("Number of students enrolled")
+                    .Tooltip(x => x.Visible(true));
+            }).CategoryAxis(axis => axis
+                .Categories(x => x.CourseName)))
+    </div>
+</div>

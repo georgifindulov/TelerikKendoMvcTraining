@@ -1,0 +1,62 @@
+﻿<h4 class="title">Gantt</h4>
+<hr />
+
+@(Html.Kendo().Gantt<GanttTaskViewModel, GanttDependencyViewModel>()
+	.Name("gantt")
+	.Toolbar(tb =>
+	{
+		tb.Pdf();
+	}).Pdf(pdf => pdf
+		.FileName("Gantt Export.pdf")
+	)
+	.Columns(columns =>
+	{
+		columns.Bound(c => c.Id).Title("ID").Width(50);
+		columns.Bound(c => c.Title).Editable(true).Sortable(true);
+		columns.Bound(c => c.Start).Title("Start Date").Format("{0:dd/MM/yyyy}").Width(100).Editable(true).Sortable(true);
+		columns.Bound(c => c.End).Title("End Date").Format("{0:dd/MM/yyyy}").Width(100).Editable(true).Sortable(true);
+		columns.Bound(c => c.PlannedStart).Hidden(true).Title("Planned Start Date").Format("{0:dd/MM/yyyy}");
+		columns.Bound(c => c.PlannedEnd).Hidden(true).Title("Planned End Date").Format("{0:dd/MM/yyyy}");
+	})
+	.Views(views =>
+	{
+		views.WeekView(weekView => weekView.Selected(true));
+		views.MonthView();
+	})
+	.ListWidth("450px")
+	.ShowPlannedTasks(true)
+	.Toolbar(t => t.Add().Name("plannedTasks"))
+	.Height(700)
+	.DataSource(d => d
+		.Model(m =>
+		{
+			m.Id(f => f.Id);
+			m.ParentId(f => f.ParentId);
+			m.OrderId(f => f.OrderId);
+			m.Field(f => f.Expanded).DefaultValue(true);
+			m.Field(f => f.Start);
+			m.Field(f => f.End);
+			m.Field(f => f.PercentComplete);
+			m.Field(f => f.PlannedStart);
+			m.Field(f => f.PlannedEnd);
+			m.Field(f => f.Summary);
+		})
+		.Read(read => read.Action("ReadTasks", "GanttChart"))
+		.Destroy(destroy => destroy.Action("DestroyTask", "GanttChart"))
+		.Update(update => update.Action("UpdateTask", "GanttChart"))
+		.Create(create => create.Action("CreateTask", "GanttChart"))
+	)
+	.DependenciesDataSource(d => d
+		.Model(m =>
+		{
+			m.Id(f => f.DependencyID);
+			m.PredecessorId(f => f.PredecessorID);
+			m.SuccessorId(f => f.SuccessorID);
+			m.Type(f => f.Type);
+		})
+		.Read("ReadDependencies", "GanttChart")
+		.Create("CreateDependency", "GanttChart")
+		.Update("UpdateDependency", "GanttChart")
+		.Destroy("DestroyDependency", "GanttChart")
+	)
+)

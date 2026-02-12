@@ -1,0 +1,54 @@
+﻿@model CourseSchedulesViewModel
+
+@* If not using `kendo.all.min.js`, you need to include `kendo.timezones.min.js` to use other timezones except UTC! *@
+@* <script href="~/lib/kendo-ui/js/kendo.timezones.min.js">~/lib/kendo-ui/js/kendo.timezones.min.js</script> *@
+
+@(Html.Kendo().Scheduler<CourseScheduleViewModel>()
+    .Name("scheduler")
+    .Date(DateTime.Today)
+    .Height(600)
+    .ShowWorkHours(true)
+    .Toolbar(t => t.Pdf())
+        .Pdf(pdf => pdf.FileName("Courses Schedule Export.pdf")
+    ).Mobile(MobileMode.Auto) @* Adaptive rendering *@
+    .Views(views =>
+    {
+        views.DayView();
+        views.WorkWeekView(workWeekView =>
+        {
+            workWeekView.Selected(true);
+        });
+        views.WeekView();
+        views.MonthView();
+        views.AgendaView();
+    })
+    //.Timezone("Etc/UTC")    // "Europe/Sofia"
+    .Resources(resource =>
+        {
+            resource.Add(m => m.CourseId) // The field of the Scheduler event, which contains the resource identifier.
+                .Title("Select a course") // The label displayed in the Scheduler edit form for this resource.
+                .Multiple(false) // Indicate that this is a multiple instance resource.
+                .DataTextField("Name")
+                .DataValueField("Id")
+                .BindTo(Model.Courses);
+        })
+    .DataSource(d => d
+        .Model(m =>
+        {
+            m.Id(c => c.Id);
+            m.Field(c => c.Title).DefaultValue("No title");
+            m.RecurrenceId(c => c.RecurrenceId);
+        })
+        .Read("Read", "CourseSchedule")
+        .Create("Create", "CourseSchedule")
+        .Destroy("Delete", "CourseSchedule")
+        .Update("Update", "CourseSchedule")
+    ).Events(e => 
+    {
+        e.Save("onSave");
+    })
+)
+
+@section scripts {
+    <script src="~/js/scheduler.js"></script>
+}

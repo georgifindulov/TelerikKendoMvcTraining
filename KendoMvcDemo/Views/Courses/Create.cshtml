@@ -1,0 +1,58 @@
+﻿@model CreateCourseViewModel
+
+@{
+    string[] imageFileExtensions = { ".jpg", ".jpeg", ".png" };
+}
+
+<div class="row">
+    <div class="col-6 offset-3">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">New Course</h4>
+            </div>
+            <div class="card-body">
+                @* https://www.telerik.com/aspnet-core-ui/documentation/html-helpers/layout/form/getting-started-form *@
+                <kendo-form name="createCourseForm" form-data="@Model" on-submit="onFormSubmit" action="Create" method="post">
+                    <form-items>
+                        <form-item type="group">
+                            <item-label text="Create Course" />
+                            <form-items>
+                                <form-item field="Code">
+                                </form-item>
+                                <form-item field="Name">
+                                </form-item>
+                                <form-item field="Section">
+                                </form-item>
+                                <form-item field="Start">
+                                </form-item>
+                                <form-item field="End">
+                                    <item-label text="End" optional="true" />
+                                    <datepicker-editor />
+                                </form-item>
+                                <form-item field="SelectedTeacherIds">
+                                    <multiselect-editor 
+                                        datatextfield="Name"
+                                        datavaluefield="Id"
+                                        bind-to="@Model.Teachers"
+                                        value-primitive="true">
+                                    </multiselect-editor>
+                                </form-item>
+                                <form-item field="ImageFile" hint="Accepted file formats (.jpg, .jpeg, .png), minimum size of 50KB, maximum size of 1MB">
+                                    <item-label text="Upload image" />
+                                    <upload-editor multiple="false">
+                                        <validation allowed-extensions="@imageFileExtensions" min-file-size="51200" max-file-size="1048576" />
+                                    </upload-editor>
+                                </form-item>
+                            </form-items>
+                        </form-item>
+                    </form-items>
+                    <validatable validate-on-blur="true" />
+                </kendo-form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/js/createcourseform.js"></script>
+}

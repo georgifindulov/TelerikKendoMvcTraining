@@ -1,0 +1,54 @@
+﻿@model IEnumerable<StudentViewModel>
+
+@(Html.Kendo().Grid<StudentViewModel>(Model)
+    .Name("students-grid")
+    .Pageable()
+    .Filterable()
+    .Sortable()
+    .Columns(columns =>
+    {
+        columns.Bound(c => c.AvatarImageFileUrl)
+            .Width(20)
+            .Filterable(false)
+            .Sortable(false)
+            .Groupable(false)
+            .ClientTemplate("<img src='#=AvatarImageFileUrl#' alt='Avatar' class='avatar' />")
+            .HtmlAttributes(new { @class = "text-center" });
+
+        columns.Bound(c => c.Name)
+            .Width(250);
+
+        columns.Bound(c => c.StudentNumber)
+            .Width(250);
+    })
+)
+
+<div class="row">
+    <a asp-action="DownloadPdf" asp-controller="Students" asp-area="">
+        @(Html.Kendo().Button()
+            .Name("btnDownloadPdf")
+            .Content("Download PDF")
+            .Icon("file-pdf")
+            .HtmlAttributes(new { @class = "mt-2 float-end" }))
+    </a>
+</div>
+
+<div class="row">
+    <a asp-action="DownloadExcel" asp-controller="Students" asp-area="">
+        @(Html.Kendo().Button()
+            .Name("btnDownloadExcel")
+            .Content("Download Excel")
+            .Icon("file-excel")
+            .HtmlAttributes(new { @class = "mt-2 float-end" }))
+    </a>
+</div>
+
+<div class="row">
+    <a asp-action="DownloadWord" asp-controller="Students" asp-area="">
+        @(Html.Kendo().Button()
+            .Name("btnDownloadWord")
+            .Content("Download Word")
+            .Icon("file-word")
+            .HtmlAttributes(new { @class = "mt-2 float-end" }))
+    </a>
+</div>

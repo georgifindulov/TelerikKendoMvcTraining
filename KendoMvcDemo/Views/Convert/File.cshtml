@@ -1,0 +1,25 @@
+﻿@model FileConvertViewModel
+
+@{
+    string[] imageFileExtensions = { ".docx" };
+}
+
+<h4>DOCX -> PDF</h4>
+<hr />
+
+<kendo-form name="uploadForm" form-data="@Model" action="File" method="post">
+    <form-items>
+        <form-item type="group">
+            <item-label text="Upload file" />
+            <form-items>
+                <form-item field="ImageFile" hint="Accepted file formats (@string.Join(", ", imageFileExtensions))">
+                    <item-label text="Upload image" />
+                    <upload-editor multiple="false">
+                        <validation allowed-extensions="@imageFileExtensions"  />
+                    </upload-editor>
+                </form-item>
+            </form-items>
+        </form-item>
+    </form-items>
+    <validatable validate-on-blur="true" />
+</kendo-form>

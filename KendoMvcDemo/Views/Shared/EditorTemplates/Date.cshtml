@@ -1,0 +1,8 @@
+﻿@* https://www.telerik.com/aspnet-core-ui/documentation/html-helpers/data-management/grid/editing/inline#editors *@
+
+@model DateOnly?
+
+@(Html.Kendo()
+    .DatePickerFor(m => m)
+    .Format("{0:dd MMM yyyy}")
+    .HtmlAttributes(new { title = Html.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName("") }))

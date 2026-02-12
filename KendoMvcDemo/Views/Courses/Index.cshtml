@@ -1,0 +1,124 @@
+﻿<h4>Courses</h4>
+<hr />
+
+<div class="k-rtl">
+    @(Html.Kendo().Grid<CourseViewModel>()
+        .Name("courses-grid")
+        .Pageable()
+        //.Pageable(p => p.PageSizes(new[] { 5, 10, 20, 50, 100 }))
+        .Filterable()
+        .Sortable()
+        //.Groupable()
+        .ToolBar(toolbar => toolbar.Create()) // The "create" command adds new data items.
+        .Editable(e => e.Mode(GridEditMode.InLine))	@*Make grid editable *@
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.Code).Width(140);
+
+            columns.Bound(c => c.Name).Width(190);
+
+            columns.Bound(c => c.Section)
+                .Width(200)
+                .Filterable(false)
+                .Sortable(false);
+
+            columns.Bound(c => c.Start)
+                .Format("{0:dd MMM yyyy}")
+                .Width(110)
+                .EditorTemplateName("Date");
+
+            columns.Bound(c => c.End)
+                .Format("{0:dd MMM yyyy}")
+                .Width(110)
+                .EditorTemplateName("Date")
+                .Groupable(false);
+
+            columns.Bound(c => c.SelectedTeacherIds)
+                .Width(200)
+                .Filterable(false)
+                .Sortable(false)
+                .Groupable(false)
+                .ClientTemplate("#=courseTeachersTemplate(data)#")
+                .EditorTemplateName("CourseTeachersEditor");
+
+            columns.Command(commands =>
+            {
+                commands.Edit().HtmlAttributes(new { @class = "edit-custom-kaust" }); // The "edit" command edits and updates the data items.
+                commands.Destroy(); // The "destroy" command removes data items.
+            }).Title("Commands").Width(200);
+        })
+        .DataSource(dataSource => dataSource
+            .Ajax()
+            .Model(model =>
+            {
+                model.Id(course => course.Id); // Specify the property, which is the unique identifier of the model that binds to the Grid.
+                model.Field(course => course.Id).Editable(false); // Make the "Id" property not editable.
+            })
+            .Read(read => read.Action("GetCourses", "Courses"))  // Action invoked when the Grid requests the data.
+            .Create(create => create.Action("CreateCourse", "Courses")) // Action invoked when the user saves a new data item.
+            .Update(update => update.Action("UpdateCourse", "Courses"))  // Action invoked when the user saves an updated data item.
+            .Destroy(destroy => destroy.Action("DeleteCourse", "Courses"))  // Action invoked when the user removes a data item.
+            .Events(events => events.Error("onError")
+        ))
+    )
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <a asp-action="Create" asp-controller="Courses" asp-area="">
+            @(Html.Kendo().Button()
+                .Name("btnNewCourse")
+                .Content("New Course")
+                .Icon("plus")
+                .HtmlAttributes(new { @class = "float-end" }))
+        </a>
+    </div>
+</div>
+
+<a asp-controller="CourseSchedule" asp-action="Index">
+    @(Html.Kendo().FloatingActionButton()
+        .Name("fab")
+        .Align(FloatingActionButtonAlign.BottomEnd)
+        .Icon("calendar"))
+</a>
+
+@section scripts {
+    <script>
+        function onError(args) {
+            var errors = args.errors;
+            if (errors) {
+                var grid = $("#courses-grid").data("kendoGrid"); // Get a reference to the Grid.
+                grid.one("dataBinding", function (e) {
+                    e.preventDefault(); // Prevent its "dataBinding" event.
+                    $.each(errors, function (key, value) { // Loop through the received errors.
+                        var message = "";
+                        if ('errors' in value) {
+                            $.each(value.errors, function() { // Loop through the error messages.
+                                message += this + "\n";
+                            });
+                        }
+
+                        // As long as the key matches the field name, validation message will be displayed as a tooltip.
+                        grid.editable.element
+                            .find("[data-valmsg-for='" + key + "']")
+                            .replaceWith(`<div class="k-tooltip k-tooltip-error" style="margin:0.5em">${kendo.ui.icon({ icon: 'exclamation-circle', type: 'svg' })} ${message}<div class="k-callout k-callout-n"></div></div>`)
+                            .show();
+                    });
+                });
+            }
+        }
+
+        function courseTeachersTemplate(data){
+            let template = '';
+
+            if (data.Teachers) {
+                for (var i = 0; i < data.Teachers.length; i++) {
+                    const teacher = data.Teachers[i];
+                    template += kendo.format('<span data-role="badge" class="k-badge k-badge-solid k-badge-solid-success k-badge-md k-rounded-full k-badge-inline" style="font-size: 14px; margin-bottom: 5px;">{0}</span> <br />', teacher.Name);
+                }
+            }
+
+            return template;
+        }
+    </script>
+}

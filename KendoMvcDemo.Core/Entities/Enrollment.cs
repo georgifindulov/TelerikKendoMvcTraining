@@ -1,0 +1,15 @@
+﻿namespace KendoMvcDemo.Core.Entities
+{
+    public class Enrollment
+    {
+        public int StudentId { get; set; }
+
+        public Student Student { get; set; }
+
+        public int CourseId { get; set; }
+
+        public DateTime DateEnrolled { get; set; }
+
+        public Course Course { get; set; }
+    }
+}

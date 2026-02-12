@@ -1,0 +1,20 @@
+﻿@model HomeViewModel
+
+@(Html.Kendo().TileLayout()
+	.Name("tilelayout")
+	.Columns(3)
+	.Containers(container =>
+	{
+		container.Add()
+			.Header(h => h.Template("<div class='text-center fw-bold'>Courses</div>"))
+			.BodyTemplate($"<div class='text-center'><h1 class='text-success'>{Model.CoursesCount}</h1></div>");
+
+		container.Add()
+			.Header(h => h.Template("<div class='text-center fw-bold'>Instructors</div>"))
+			.BodyTemplate($"<div class='text-center'><h1 class='text-success'>{Model.InstructorsCount}</h1></div>");
+
+		container.Add()
+			.Header(h => h.Template("<div class='text-center fw-bold'>Students</div>"))
+			.BodyTemplate($"<div class='text-center'><h1 class='text-success'>{Model.StudentsCount}</h1></div>");
+	}).Reorderable(true)
+)

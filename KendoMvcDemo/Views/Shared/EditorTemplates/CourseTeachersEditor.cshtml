@@ -1,0 +1,8 @@
+﻿@model IEnumerable<int>
+
+@(Html.Kendo().MultiSelectFor(m => m)
+    .DataValueField("Id") // The value of the drop-down is taken from the "Id" property.
+    .DataTextField("Name") // The text of the item is taken from the "Name" property.
+    .BindTo((System.Collections.IEnumerable)ViewBag.Teachers) // A list of all optipns, which is populated in the controller.
+    .ValuePrimitive(true)   // Forces the dropdown to send a list of primitive values (integers in this case) instead of a list of objects.
+)

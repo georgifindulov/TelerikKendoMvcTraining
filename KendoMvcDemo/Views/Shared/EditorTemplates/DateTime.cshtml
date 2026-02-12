@@ -1,0 +1,7 @@
+﻿@* https://www.telerik.com/aspnet-core-ui/documentation/html-helpers/data-management/grid/editing/inline#editors *@
+
+@model DateTime?
+
+@(Html.Kendo().DateTimePickerFor(m => m)
+    .Format("{0:dd/MM/yyyy hh:mm tt}")
+    .HtmlAttributes(new { title = Html.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName("") }))
