@@ -4,7 +4,7 @@
     {
         public int CoursesCount { get; set; } 
 
-        public int InstructorsCount { get; set; }
+        public int TeachersCount { get; set; }
 
         public int StudentsCount { get; set; }
     }

@@ -25,9 +25,9 @@ namespace KendoMvcDemo
 
             // Add services to the container.
 
-            builder.Services.AddDbContext<KaustDbContext>(options =>
+            builder.Services.AddDbContext<UniDbContext>(options =>
             {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("Kaust"));
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
 
             string reportsPath = Path.Combine(builder.Environment.ContentRootPath, "Reports");
@@ -44,13 +44,13 @@ namespace KendoMvcDemo
                     // Newtonsoft.Json
                     options.SerializerSettings.ContractResolver = new DefaultContractResolver();
                 })
-                .AddTelerikReporting("KaustMvcCore", reportsPath);
+                .AddTelerikReporting("DemoMvcCore", reportsPath);
 
             // Telerik Reporting
             builder.Services.AddSingleton<IReportServiceConfiguration>(sp =>
                 new ReportServiceConfiguration
                 {
-                    HostAppId = "KaustMvcCore",
+                    HostAppId = "DemoMvcCore",
                     Storage = new FileStorage(),
                     ReportSourceResolver = new UriReportSourceResolver(reportsPath),
                     ReportingEngineConfiguration = sp.GetService<IConfiguration>()
@@ -72,16 +72,6 @@ namespace KendoMvcDemo
             //{
             //    options.DeferToScriptFiles = true;
             //});
-
-            // Document processing library fonts
-            Telerik.Windows.Documents.Extensibility.FixedExtensibilityManager.FontsProvider = new FontsProvider();
-
-            using (Stream fontStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("KendoMvcDemo.Fonts.Qahiri-Regular.ttf"))
-            {
-                using MemoryStream ms = new();
-                fontStream.CopyTo(ms);
-                FontsRepository.RegisterFont(new FontFamily("Qahiri"), FontStyles.Normal, FontWeights.Normal, ms.ToArray());
-            }
 
             if (builder.Environment.IsDevelopment())
             {
@@ -145,7 +135,7 @@ namespace KendoMvcDemo
 
             using (IServiceScope scope = app.Services.CreateScope())
             {
-                KaustDbContext db = scope.ServiceProvider.GetRequiredService<KaustDbContext>();
+                UniDbContext db = scope.ServiceProvider.GetRequiredService<UniDbContext>();
                 await db.Database.MigrateAsync();
 
                 DataSeedService dataSeedService = scope.ServiceProvider.GetRequiredService<DataSeedService>();

@@ -12,10 +12,10 @@ namespace KendoMvcDemo.Controllers
 {
     public class StudentsController : Controller
     {
-        private readonly KaustDbContext db;
+        private readonly UniDbContext db;
         private readonly IWebHostEnvironment hostEnvironment;
 
-        public StudentsController(KaustDbContext db, IWebHostEnvironment hostEnvironment)
+        public StudentsController(UniDbContext db, IWebHostEnvironment hostEnvironment)
         {
             this.db = db;
             this.hostEnvironment = hostEnvironment;

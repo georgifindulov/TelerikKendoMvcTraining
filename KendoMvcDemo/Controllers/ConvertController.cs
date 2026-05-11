@@ -7,10 +7,10 @@ namespace KendoMvcDemo.Controllers
 {
     public class ConvertController : Controller
     {
-        private readonly KaustDbContext db;
+        private readonly UniDbContext db;
         private readonly IPdfDocumentGenerator pdfDocumentGenerator;
 
-        public ConvertController(KaustDbContext db, IPdfDocumentGenerator pdfDocumentGenerator)
+        public ConvertController(UniDbContext db, IPdfDocumentGenerator pdfDocumentGenerator)
         {
             this.db = db;
             this.pdfDocumentGenerator = pdfDocumentGenerator;

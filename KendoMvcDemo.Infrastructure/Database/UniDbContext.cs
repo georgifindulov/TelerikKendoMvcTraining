@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KendoMvcDemo.Infrastructure.Database
 {
-    public class KaustDbContext : DbContext
+    public class UniDbContext : DbContext
     {
-        public KaustDbContext(DbContextOptions options)
+        public UniDbContext(DbContextOptions options)
             : base(options)
         {
         }

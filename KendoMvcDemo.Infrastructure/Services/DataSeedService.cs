@@ -10,9 +10,9 @@ namespace KendoMvcDemo.Infrastructure.Services
 {
     public class DataSeedService
     {
-        private readonly KaustDbContext db;
+        private readonly UniDbContext db;
 
-        public DataSeedService(KaustDbContext db)
+        public DataSeedService(UniDbContext db)
         {
             this.db = db;
         }
@@ -133,7 +133,7 @@ namespace KendoMvcDemo.Infrastructure.Services
         private IEnumerable<CourseSeedModel> ReadCoursesAndTeachersFromExcel()
         {
             using Stream excelStream = Assembly.GetExecutingAssembly()
-                .GetManifestResourceStream("KendoMvcDemo.Infrastructure.KaustCourses.xlsx");
+                .GetManifestResourceStream("KendoMvcDemo.Infrastructure.Courses.xlsx");
 
             List<CourseSeedModel> courses = [];
 

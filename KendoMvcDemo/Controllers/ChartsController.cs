@@ -10,9 +10,9 @@ namespace KendoMvcDemo.Controllers
 {
     public class ChartsController : Controller
     {
-        private readonly KaustDbContext db;
+        private readonly UniDbContext db;
 
-        public ChartsController(KaustDbContext db)
+        public ChartsController(UniDbContext db)
         {
             this.db = db;
         }

@@ -11,9 +11,9 @@ namespace KendoMvcDemo.Controllers
 {
     public class CoursesController : Controller
     {
-        private readonly KaustDbContext db;
+        private readonly UniDbContext db;
 
-        public CoursesController(KaustDbContext db)
+        public CoursesController(UniDbContext db)
         {
             this.db = db;
         }

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace KendoMvcDemo.Infrastructure.Migrations
 {
-    [DbContext(typeof(KaustDbContext))]
+    [DbContext(typeof(UniDbContext))]
     [Migration("20260212154459_InitialMigration")]
     partial class InitialMigration
     {

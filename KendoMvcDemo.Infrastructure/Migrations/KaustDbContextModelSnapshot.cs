@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace KendoMvcDemo.Infrastructure.Migrations
 {
-    [DbContext(typeof(KaustDbContext))]
+    [DbContext(typeof(UniDbContext))]
     partial class KaustDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

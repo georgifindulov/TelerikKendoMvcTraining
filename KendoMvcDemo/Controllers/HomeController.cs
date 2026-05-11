@@ -11,9 +11,9 @@ namespace KendoMvcDemo.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly KaustDbContext db;
+        private readonly UniDbContext db;
 
-        public HomeController(KaustDbContext db)
+        public HomeController(UniDbContext db)
         {
             this.db = db;
         }
@@ -42,7 +42,7 @@ namespace KendoMvcDemo.Controllers
             {
                 CoursesCount = await db.Courses.CountAsync(),
                 StudentsCount = await db.Students.CountAsync(),
-                InstructorsCount = await db.Teachers.CountAsync()
+                TeachersCount = await db.Teachers.CountAsync()
             };
 
             return viewModel;

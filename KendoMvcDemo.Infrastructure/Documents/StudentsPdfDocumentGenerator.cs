@@ -60,15 +60,7 @@ namespace KendoMvcDemo.Infrastructure.Documents
             titleBlock.TextProperties.FontSize = 24;
             titleBlock.InsertText("Students PDF Export");
 
-            Block subTitleBlock = new();
-            FontsRepository.TryCreateFont(new FontFamily("Qahiri"), out FontBase qahiriFont);
-            subTitleBlock.TextProperties.Font = qahiriFont;
-            subTitleBlock.TextProperties.FontSize = 18;
-
-            subTitleBlock.InsertText("أهلا بكم في تيليريك");
-
             editor.InsertBlock(titleBlock);
-            editor.InsertBlock(subTitleBlock);
 
             editor.InsertLineBreak();
             editor.InsertLineBreak();
