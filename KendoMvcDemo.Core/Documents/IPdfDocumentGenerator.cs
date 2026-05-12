@@ -5,8 +5,7 @@
         byte[] ExportDocxToPdf(Stream stream);
     }
 
-    public interface IPdfDocumentGenerator<TModel> : IPdfDocumentGenerator
+    public interface IPdfDocumentGenerator<TModel> : IPdfDocumentGenerator, IDocumentGenerator<TModel>
     {
-        byte[] Export(params IEnumerable<TModel> data);
     }
 }

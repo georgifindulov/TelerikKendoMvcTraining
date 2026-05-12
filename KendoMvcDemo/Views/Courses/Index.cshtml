@@ -43,7 +43,7 @@
 
             columns.Command(commands =>
             {
-                commands.Edit().HtmlAttributes(new { @class = "edit-custom-kaust" }); // The "edit" command edits and updates the data items.
+                commands.Edit(); // The "edit" command edits and updates the data items.
                 commands.Destroy(); // The "destroy" command removes data items.
             }).Title("Commands").Width(200);
         })

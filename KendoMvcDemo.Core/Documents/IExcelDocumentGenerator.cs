@@ -1,7 +1,6 @@
 ﻿namespace KendoMvcDemo.Core.Documents
 {
-    public interface IExcelDocumentGenerator<TModel>
+    public interface IExcelDocumentGenerator<TModel> : IDocumentGenerator<TModel>
     {
-        byte[] Export(params IEnumerable<TModel> data);
     }
 }
