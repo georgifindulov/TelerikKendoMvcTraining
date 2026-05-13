@@ -7,6 +7,7 @@ using KendoMvcDemo.Infrastructure.Services;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Serialization;
+using System.Data;
 using System.Globalization;
 using System.Reflection;
 using Telerik.Documents.Core.Fonts;
@@ -57,8 +58,12 @@ namespace KendoMvcDemo
                 });
 
             builder.Services.AddScoped<IPdfDocumentGenerator, DefaultPdfDocumentGenerator>();
+
             builder.Services.AddScoped<IPdfDocumentGenerator<StudentExportDto>, StudentsPdfDocumentGenerator>();
+
             builder.Services.AddScoped<IExcelDocumentGenerator<StudentExportDto>, StudentsExcelDocumentGenerator>();
+            builder.Services.AddScoped<IExcelDocumentGenerator, ExcelDynamicGenerator>();
+
             builder.Services.AddScoped<IWordDocumentGenerator<StudentExportDto>, StudentsWordDocumentGenerator>();
 
             builder.Services.AddCors();

@@ -3,4 +3,8 @@
     public interface IExcelDocumentGenerator<TModel> : IDocumentGenerator<TModel>
     {
     }
+
+    public interface IExcelDocumentGenerator : IDocumentGenerator
+    {
+    }
 }
